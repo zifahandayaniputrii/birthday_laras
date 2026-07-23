@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Birthday Story for Laras! 🌸🎀</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffc6ff, #ffadad, #ffd6a5, #ffb5a7);
+            background-size: 300% 300%;
+            animation: gradientBG 8s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card-wrapper {
+            position: relative;
+            width: 90%;
+            max-width: 420px;
+            height: 550px;
+            z-index: 10;
+        }
+
+        .layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 22px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.6);
+            border: 3px solid #ffccd5;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s ease;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.5) rotate(-10deg) translateY(100px);
+        }
+
+        .layer.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: scale(1) rotate(0deg) translateY(0);
+        }
+
+        .layer.passed {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.8) rotate(10deg) translateY(-150px);
+        }
+
+        h1 { color: #ff4d6d; margin-bottom: 12px; font-size: 1.45rem; }
+        .name-title { color: #ff3366; font-weight: 800; font-size: 1.35rem; margin-bottom: 5px; }
+        p { color: #555; font-size: 0.92rem; line-height: 1.5; margin-bottom: 15px; }
+
+        .profile-pic {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ff758f;
+            box-shadow: 0 8px 20px rgba(255, 117, 143, 0.4);
+            margin-bottom: 15px;
+            animation: pulsePic 2s infinite alternate;
+        }
+
+        @keyframes pulsePic {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        /* --- BUKET DENGAN 5 FOTO POLAROID MEKAR --- */
+        .photo-bouquet-container {
+            position: relative;
+            width: 260px;
+            height: 220px;
+            margin: 5px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            animation: floatBouquet 2.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatBouquet {
+            0% { transform: translateY(0) rotate(-2deg); }
+            100% { transform: translateY(-8px) rotate(2deg); }
+        }
+
+        .photos-wrapper {
+            position: relative;
+            width: 100%;
+            height: 130px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            z-index: 2;
+            margin-bottom: -45px;
+        }
+
+        .bouquet-photo {
+            width: 62px;
+            height: 82px;
+            background: #fff;
+            padding: 4px 4px 10px 4px;
+            border-radius: 6px;
+            box-shadow: 0 5px 12px rgba(255, 77, 109, 0.3);
+            border: 2px solid #ffccd5;
+            position: absolute;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        /* Susunan 5 Foto Mekar */
+        .p1 { transform: rotate(-25deg) translateX(-68px) translateY(12px); z-index: 2; }
+        .p2 { transform: rotate(-12deg) translateX(-35px) translateY(2px); z-index: 3; }
+        .p3 { transform: rotate(0deg) translateX(0px) translateY(-8px); z-index: 4; }
+        .p4 { transform: rotate(12deg) translateX(35px) translateY(2px); z-index: 3; }
+        .p5 { transform: rotate(25deg) translateX(68px) translateY(12px); z-index: 2; }
+
+        .bouquet-paper {
+            width: 0;
+            height: 0;
+            border-left: 75px solid transparent;
+            border-right: 75px solid transparent;
+            border-top: 125px solid #ff8fa3;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 6px 12px rgba(255, 143, 163, 0.4));
+            border-radius: 12px;
+        }
+
+        .bouquet-paper::before {
+            content: '';
+            position: absolute;
+            top: -125px;
+            left: -55px;
+            width: 0;
+            height: 0;
+            border-left: 55px solid transparent;
+            border-right: 55px solid transparent;
+            border-top: 100px solid #ffb3c1;
+        }
+
+        .bouquet-ribbon {
+            position: absolute;
+            bottom: 25px;
+            z-index: 5;
+            font-size: 1.8rem;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+        }
+
+        /* --- DESAIN KUE ULANG TAHUN CUTE --- */
+        .cake-art {
+            position: relative;
+            width: 160px;
+            height: 130px;
+            margin: 15px auto 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .cake-plate {
+            width: 170px;
+            height: 12px;
+            background: #fff0f3;
+            border: 2px solid #ffccd5;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .cake-layer-bottom {
+            width: 140px;
+            height: 45px;
+            background: linear-gradient(to right, #ff8fa3, #ff758f, #ff8fa3);
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            box-shadow: inset 0 6px 0 #ffffff;
+        }
+
+        .cake-layer-top {
+            width: 100px;
+            height: 38px;
+            background: linear-gradient(to right, #ffb3c1, #ff8fa3, #ffb3c1);
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            box-shadow: inset 0 5px 0 #ffffff;
+        }
+
+        .cherry {
+            position: absolute;
+            top: -12px;
+            font-size: 1.1rem;
+        }
+
+        .candle-stick {
+            width: 8px;
+            height: 25px;
+            background: repeating-linear-gradient(45deg, #ffb703, #ffb703 4px, #ffffff 4px, #ffffff 8px);
+            border-radius: 3px;
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .flame-glow {
+            width: 14px;
+            height: 20px;
+            background: #ff4d6d;
+            border-radius: 50% 50% 20% 20%;
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: flameFlicker 0.4s infinite alternate;
+            box-shadow: 0 0 12px #ff4d6d, 0 0 25px #ffb703, 0 0 35px #ff0055;
+            cursor: pointer;
+            z-index: 5;
+        }
+
+        @keyframes flameFlicker {
+            0% { transform: translateX(-50%) scale(1) rotate(-3deg); }
+            100% { transform: translateX(-50%) scale(1.2) rotate(3deg); }
+        }
+
+        .flame-glow.off { display: none; }
+
+        .btn {
+            background: linear-gradient(45deg, #ff4d6d, #ff758f);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 77, 109, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.08) rotate(2deg);
+            background: linear-gradient(45deg, #ff758f, #ffb3c1);
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .opt-btn {
+            background: #fff;
+            color: #ff3366;
+            border: 2px solid #ffb3c1;
+            padding: 10px 12px;
+            border-radius: 18px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .opt-btn:hover {
+            background: #ff4d6d;
+            color: white;
+            border-color: #ff4d6d;
+            transform: translateY(-2px);
+        }
+
+        .flower {
+            position: absolute;
+            top: -10%;
+            font-size: 1.8rem;
+            pointer-events: none;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0.2; }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #ffb3c1;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 20;
+            animation: confettiPop 1.5s ease-out forwards;
+        }
+
+        @keyframes confettiPop {
+            0% { opacity: 1; transform: translate(0, 0) scale(1); }
+            100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(0.2); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-wrapper">
+
+        <!-- HALAMAN 1 -->
+        <div class="layer active" id="p1">
+            <span style="font-size: 3.5rem;">💌</span>
+            <h1>Pesan Spesial Diterima!</h1>
+            <p>Ada kejutan khusus hari ini dari kakak! Klik tombol di bawah buat buka kuisnya ya!</p>
+            <button class="btn" onclick="nextPage('p1', 'p2', 1)">Mulai Sekarang 🚀</button>
+        </div>
+
+        <!-- HALAMAN 2 -->
+        <div class="layer" id="p2">
+            <img src="laras.jpeg" alt="Foto Laras" class="profile-pic">
+            <h1>Sebutkan Siapa Ini! 😜</h1>
+            <p>Pertanyaan 1: Siapa adek paling gemes yang hari ini lagi ulang tahun?</p>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="nextPage('p2', 'p3', 2)">A. Laras Ceria Syafda 🌸</button>
+                <button class="opt-btn" onclick="nextPage('p2', 'p3', 2)">B. Adeknya Kakak Paling Kece 😎</button>
+                <button class="opt-btn" onclick="nextPage('p2', 'p3', 2)">C. Dua-duanya Benar! ✨</button>
+            </div>
+        </div>
+
+        <!-- HALAMAN 3 -->
+        <div class="layer" id="p3">
+            <span style="font-size: 3rem;">🌟</span>
+            <h1>Sifat Laras Kebanyakan...</h1>
+            <p>Pertanyaan 2: Kalau lagi sama kakak, Laras itu tipe adek yang gimana sih?</p>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="nextPage('p3', 'p4', 3)">Selalu Ceria & Bikin Suasana Ramai ☀️</button>
+                <button class="opt-btn" onclick="nextPage('p3', 'p4', 3)">Suka Manja & Minta Jajan 🍨</button>
+                <button class="opt-btn" onclick="nextPage('p3', 'p4', 3)">Pendengar Yang Baik & Baik Hati 🤍</button>
+            </div>
+        </div>
+
+        <!-- HALAMAN 4 -->
+        <div class="layer" id="p4">
+            <span style="font-size: 3rem;">🎂</span>
+            <h1>Persiapan Kepala 2 🤪</h1>
+            <p>Pertanyaan 3: Sebelum resmi masuk usia 20-an, hal apa yang wajib disiapin dari sekarang?</p>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="nextPage('p4', 'p5', 4)">Mental Menghadapi Dewasa 🧠</button>
+                <button class="opt-btn" onclick="nextPage('p4', 'p5', 4)">Stok Camilan Yang Banyak 🍕</button>
+                <button class="opt-btn" onclick="nextPage('p4', 'p5', 4)">Makin Sering Minta Jajan Ke Kakak 💸</button>
+            </div>
+        </div>
+
+        <!-- HALAMAN 5 -->
+        <div class="layer" id="p5">
+            <span style="font-size: 3rem;">🤪</span>
+            <h1>Momen Paling Sering...</h1>
+            <p>Pertanyaan 4: Apa yang paling sering Laras lakuin kalau lagi pusing atau capek?</p>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="nextPage('p5', 'p6', 5)">Tidur Sehari Penuh 😴</button>
+                <button class="opt-btn" onclick="nextPage('p5', 'p6', 5)">Cari Makanan Enak & Manis 🍰</button>
+                <button class="opt-btn" onclick="nextPage('p5', 'p6', 5)">Curhat Ke Kakak Sampai Lega 🗣️</button>
+            </div>
+        </div>
+
+        <!-- HALAMAN 6 -->
+        <div class="layer" id="p6">
+            <span style="font-size: 3rem;">🤝</span>
+            <h1>Pertanyaan Terakhir!</h1>
+            <p>Kalau nanti di usia 19 tahun ini kamu butuh bantuan atau temen cerita, harus hubungin siapa?</p>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="nextPage('p6', 'p7', 6)">Langsung Cari Kakak! 🤍</button>
+                <button class="opt-btn" onclick="nextPage('p6', 'p7', 6)">Kakak Selalu Ada Di Belakangmu 🤝</button>
+            </div>
+        </div>
+
+        <!-- HALAMAN 7 -->
+        <div class="layer" id="p7">
+            <span style="font-size: 2.5rem;">📜</span>
+            <h1>Pesan Singkat Kakak 💭</h1>
+            <p style="font-size: 0.88rem; text-align: justify; line-height: 1.5; color: #333;">
+                Ingat ya, umur 19 itu fase belajar banyak hal baru. Jangan takut gagal atau capek, karena proses dewasa memang begitu. Tapi tenang aja, Laras nggak jalan sendirian kok!
+            </p>
+            <button class="btn" onclick="nextPage('p7', 'p8', 7)">Lihat Buket Foto 1 💐</button>
+        </div>
+
+        <!-- HALAMAN 8: BUKET BUNGA PERTAMA (1 FOTO SEPERTI UKURAN ASLI) -->
+        <div class="layer" id="p8">
+            <h1>Buket Foto Bagian 1! 💐✨</h1>
+            <p>Ini buket bunga pertama!</p>
+            
+            <div style="margin: 15px 0;">
+                <img src="bunga.jpg" alt="Buket Bunga Pertama" style="max-width: 100%; max-height: 240px; width: auto; height: auto; border-radius: 12px;">
+            </div>
+
+            <p style="font-size: 0.85rem; color: #ff3366; font-weight: bold; margin-top: 10px;">Masih ada 1 buket lagi nih! 🌸</p>
+            <button class="btn" onclick="nextPage('p8', 'p8_2', 8)">Lihat Buket Foto 2 💐</button>
+        </div>
+
+        <!-- HALAMAN 8 BUKET KEDUA (5 FOTO) -->
+        <div class="layer" id="p8_2">
+            <h1>Buket Foto Bagian 2! 💐✨</h1>
+            <p>Momen-momen manis lainnya dari Laras!</p>
+            
+            <div class="photo-bouquet-container">
+                <div class="photos-wrapper">
+                    <!-- FOTO BUKET 2 -->
+                    <img src="laras3.jpeg" alt="Foto 6" class="bouquet-photo p1">
+                    <img src="laras1.jpeg" alt="Foto 7" class="bouquet-photo p2">
+                    <img src="laras2.jpeg" alt="Foto 8" class="bouquet-photo p3">
+                    <img src="laras1.jpeg" alt="Foto 9" class="bouquet-photo p4">
+                    <img src="laras3.jpeg" alt="Foto 10" class="bouquet-photo p5">
+                </div>
+                <div class="bouquet-paper"></div>
+                <div class="bouquet-ribbon">🎀</div>
+            </div>
+
+            <p style="font-size: 0.85rem; color: #ff3366; font-weight: bold; margin-top: 10px;">Sekarang waktunya tiup kue! 🎂</p>
+            <button class="btn" onclick="nextPage('p8_2', 'p9', 8)">Lanjut Ke Kue Ulang Tahun! 🎂</button>
+        </div>
+
+        <!-- HALAMAN 9: KUE -->
+        <div class="layer" id="p9">
+            <div class="name-title">LARAS CERIA SYAFDA 🎉</div>
+            <p style="margin-bottom: 2px; font-size: 0.82rem; color: #ff3366; font-weight: bold;">Klik api lilinnya buat tiup! 🕯️</p>
+            
+            <div class="cake-art">
+                <div class="cake-layer-top">
+                    <div class="candle-stick">
+                        <div class="flame-glow" id="flame" onclick="blowCandle()"></div>
+                    </div>
+                    <span class="cherry" style="left: 10px;">🍒</span>
+                    <span class="cherry" style="right: 10px;">🍒</span>
+                </div>
+                <div class="cake-layer-bottom"></div>
+                <div class="cake-plate"></div>
+            </div>
+
+            <p id="wish-text" style="font-size: 0.85rem; color: #333; line-height: 1.4; font-weight: 600; margin-top: 5px;">
+                "Selamat ulang tahun adek nya kakak selamat usia 19 ini tahun terakhir sebelum masuk kepala 2 wish you all the best, iam always everytime behind you if you need someone hehe" ❤️✨
+            </p>
+            
+            <button class="btn" style="padding: 8px 20px; font-size: 0.85rem; margin-top: 10px;" onclick="restart()">Putar Lagi 🔄</button>
+        </div>
+
+    </div>
+
+    <script>
+        let audioCtx;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function playMelody(pageIndex) {
+            const ctx = getAudioContext();
+            let notes = [];
+
+            if (pageIndex === 1) {
+                notes = [{f: 330, d: 0.2}, {f: 396, d: 0.2}, {f: 440, d: 0.3}, {f: 528, d: 0.4}];
+            } else if (pageIndex === 2) {
+                notes = [{f: 264, d: 0.2}, {f: 330, d: 0.2}, {f: 264, d: 0.2}, {f: 352, d: 0.4}];
+            } else if (pageIndex === 3) {
+                notes = [{f: 352, d: 0.2}, {f: 396, d: 0.2}, {f: 440, d: 0.3}, {f: 495, d: 0.4}];
+            } else if (pageIndex === 4) {
+                notes = [{f: 440, d: 0.2}, {f: 495, d: 0.2}, {f: 528, d: 0.2}, {f: 587, d: 0.4}];
+            } else if (pageIndex === 5) {
+                notes = [{f: 297, d: 0.2}, {f: 352, d: 0.2}, {f: 396, d: 0.3}, {f: 440, d: 0.4}];
+            } else if (pageIndex === 6) {
+                notes = [{f: 528, d: 0.2}, {f: 495, d: 0.2}, {f: 440, d: 0.3}, {f: 396, d: 0.4}];
+            } else if (pageIndex === 7) {
+                notes = [{f: 264, d: 0.3}, {f: 330, d: 0.3}, {f: 396, d: 0.4}, {f: 528, d: 0.5}];
+            } else if (pageIndex === 8) {
+                notes = [
+                    {f: 264, d: 0.3}, {f: 264, d: 0.3}, {f: 297, d: 0.5}, {f: 264, d: 0.5}, {f: 352, d: 0.5}, {f: 330, d: 0.9},
+                    {f: 264, d: 0.3}, {f: 264, d: 0.3}, {f: 297, d: 0.5}, {f: 264, d: 0.5}, {f: 396, d: 0.5}, {f: 352, d: 0.9}
+                ];
+            }
+
+            let currentTime = ctx.currentTime + 0.05;
+            notes.forEach(note => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(note.f, currentTime);
+                
+                gain.gain.setValueAtTime(0.18, currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, currentTime + note.d);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start(currentTime);
+                osc.stop(currentTime + note.d);
+
+                currentTime += note.d * 0.9;
+            });
+        }
+
+        function nextPage(fromId, toId, audioIndex) {
+            const current = document.getElementById(fromId);
+            const next = document.getElementById(toId);
+
+            current.classList.remove('active');
+            current.classList.add('passed');
+
+            setTimeout(() => {
+                next.classList.add('active');
+            }, 150);
+
+            playMelody(audioIndex);
+
+            if(toId === 'p9') {
+                triggerFireworks();
+            }
+        }
+
+        function restart() {
+            document.getElementById('flame').classList.remove('off');
+            const layers = document.querySelectorAll('.layer');
+            layers.forEach(l => {
+                l.classList.remove('active', 'passed');
+            });
+            document.getElementById('p1').classList.add('active');
+        }
+
+        function blowCandle() {
+            document.getElementById('flame').classList.add('off');
+            triggerFireworks();
+            playMelody(8);
+        }
+
+        function triggerFireworks() {
+            const colors = ['#ff4d6d', '#ffb3c1', '#ffb703', '#ffffff', '#ff8fa3'];
+            for (let i = 0; i < 60; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                confetti.style.left = '50vw';
+                confetti.style.top = '50vh';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 220 + 60;
+                const x = Math.cos(angle) * velocity + 'px';
+                const y = Math.sin(angle) * velocity + 'px';
+                
+                confetti.style.setProperty('--x', x);
+                confetti.style.setProperty('--y', y);
+
+                document.body.appendChild(confetti);
+
+                setTimeout(() => { confetti.remove(); }, 1500);
+            }
+        }
+
+        const flowerIcons = ['🌸', '🌺', '✨', '💖', '🎀', '🌷'];
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.classList.add('flower');
+            flower.innerText = flowerIcons[Math.floor(Math.random() * flowerIcons.length)];
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
+            
+            const duration = Math.random() * 3 + 3;
+            flower.style.animationDuration = duration + 's';
+
+            document.body.appendChild(flower);
+
+            setTimeout(() => { flower.remove(); }, duration * 1000);
+        }
+
+        setInterval(createFlower, 200);
+    </script>
+</body>
+</html>
